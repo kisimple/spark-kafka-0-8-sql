@@ -1,4 +1,4 @@
-# spark-kafka-0-8-sql
+# spark-sql-kafka-0-8
 
 Spark Structured Streaming Kafka Source for Kafka 0.8.
 
@@ -17,7 +17,7 @@ Like other Sources in Spark ecosystem, the simplest way to use is to add the dep
 ```
 spark-submit
   --master local[*] \
-  --packages org.apache.spark:spark-kafka-0-8-sql_2.11:1.0 \
+  --packages org.apache.spark:spark-sql-kafka-0-8_2.11:2.2.0 \
   yourApp
   ...
 ```
@@ -35,7 +35,7 @@ To use `KafkaSource`, it is the same as any other Structured Streaming Sources a
       .format("kafka")
       .option("kafka.bootstrap.servers", testUtils.brokerAddress)
       .option("startingoffset", "smallest")
-      .option("topics", topic)
+      .option("subscribe", topic)
 
     val kafka = reader.load()
       .selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)")
@@ -75,7 +75,7 @@ Due to the rigid changes of Structured Streaming component, This Kafka 0.8 Sourc
 
     ```
 2. You have to set `kafka.bootstrap.servers` or `kafka.metadata.broker` in Source creation.
-3. You have to specify "topics" in Kafka 0.8 Source options, multiple topics are separated by ",".
+3. You have to specify "subscribe" in Kafka 0.8 Source options, multiple topics are separated by ",".
 4. All the Kafka related configurations set through Kafka 0.8 Source should be start with "kafka." prefix.
 5. Option "startingoffset" can only be "smallest" or "largest".
 

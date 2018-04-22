@@ -180,7 +180,7 @@ private[kafka08] class KafkaSourceProvider extends StreamSourceProvider
 
     def set(key: String, value: String): this.type = {
       map.put(key, value)
-      info(s"$module: Set $key to $value, earlier value: ${kafkaParams.get(key).getOrElse("")}")
+      info(s"$module: Set $key to $value, earlier value: ${kafkaParams.getOrElse(key, "")}")
       this
     }
 
@@ -197,7 +197,7 @@ private[kafka08] class KafkaSourceProvider extends StreamSourceProvider
 }
 
 private[kafka08] object KafkaSourceProvider {
-  private val TOPICS = "topics"
+  private val TOPICS = "subscribe"
   private val STARTING_OFFSET_OPTION_KEY = "startingoffset"
   private val STARTING_OFFSET_OPTION_VALUES = Set("largest", "smallest")
 }
